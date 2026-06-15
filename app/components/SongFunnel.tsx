@@ -17,7 +17,7 @@ const RELATIONSHIPS: Choice[] = [
   { id: "kind", label: "Mein Kind", emoji: "🧸" },
   { id: "schwester", label: "Meine Schwester", emoji: "💞" },
   { id: "bruder", label: "Mein Bruder", emoji: "💪" },
-  { id: "sonstiges", label: "Jemand Besonderes", emoji: "✨" },
+  { id: "sonstiges", label: "Andere…", emoji: "✨" },
 ];
 
 const OCCASIONS: Choice[] = [
@@ -29,6 +29,7 @@ const OCCASIONS: Choice[] = [
   { id: "weihnachten", label: "Weihnachten", emoji: "🎄" },
   { id: "valentinstag", label: "Valentinstag", emoji: "❤️" },
   { id: "einfach_so", label: "Einfach so", emoji: "✨" },
+  { id: "andere", label: "Anderer Anlass…", emoji: "📝" },
 ];
 
 const GENRES: Choice[] = [
@@ -65,30 +66,41 @@ const LANGUAGES: Choice[] = [
 type Answers = {
   recipient_name: string;
   relationship: string;
+  relationship_other: string;
   sender_name: string;
   occasion: string;
+  occasion_other: string;
   genre: string;
   mood: string;
   voice: string;
   language: string;
-  story: string;
+  story_memory: string;
+  story_traits: string;
+  story_inside: string;
+  story_message: string;
   email: string;
 };
 
 const EMPTY: Answers = {
   recipient_name: "",
   relationship: "",
+  relationship_other: "",
   sender_name: "",
   occasion: "",
+  occasion_other: "",
   genre: "",
   mood: "",
   voice: "",
   language: "de",
-  story: "",
+  story_memory: "",
+  story_traits: "",
+  story_inside: "",
+  story_message: "",
   email: "",
 };
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 11;
+const EMAIL_STEP = 10;
 
 export default function SongFunnel() {
   const [step, setStep] = useState(0);
@@ -102,6 +114,9 @@ export default function SongFunnel() {
   const next = () => setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
   const back = () => setStep((s) => Math.max(0, s - 1));
 
+  // Name (Platzhalter für die Story-Fragen)
+  const who = a.recipient_name.trim() || "die Person";
+
   // Auswahl-Schritte springen automatisch weiter
   const choose = (k: keyof Answers, v: string) => {
     set(k, v);
@@ -111,9 +126,16 @@ export default function SongFunnel() {
   const canContinue = (): boolean => {
     switch (step) {
       case 0:
-        return a.recipient_name.trim().length > 0 && a.relationship.length > 0;
+        return (
+          a.recipient_name.trim().length > 0 &&
+          a.relationship.length > 0 &&
+          (a.relationship !== "sonstiges" || a.relationship_other.trim().length > 0)
+        );
       case 1:
-        return a.occasion.length > 0;
+        return (
+          a.occasion.length > 0 &&
+          (a.occasion !== "andere" || a.occasion_other.trim().length > 0)
+        );
       case 2:
         return a.genre.length > 0;
       case 3:
@@ -121,10 +143,14 @@ export default function SongFunnel() {
       case 4:
         return a.voice.length > 0 && a.language.length > 0;
       case 5:
-        return a.story.trim().length >= 15;
+        return a.story_memory.trim().length >= 10; // Herzstück: Pflicht
       case 6:
-        return true; // Paket immer gewählt
       case 7:
+      case 8:
+        return true; // weitere Detail-Fragen: optional
+      case 9:
+        return true; // Paket immer gewählt
+      case EMAIL_STEP:
         return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a.email.trim());
       default:
         return false;
@@ -185,6 +211,16 @@ export default function SongFunnel() {
               onPick={(v) => set("relationship", v)}
               cols={3}
             />
+            {a.relationship === "sonstiges" && (
+              <input
+                className="fld"
+                style={{ marginTop: 12 }}
+                placeholder="Wer ist diese Person? z. B. meine Patentante, mein Kollege …"
+                value={a.relationship_other}
+                onChange={(e) => set("relationship_other", e.target.value)}
+                autoFocus
+              />
+            )}
           </Step>
         )}
 
@@ -194,9 +230,19 @@ export default function SongFunnel() {
             <ChoiceGrid
               choices={OCCASIONS}
               value={a.occasion}
-              onPick={(v) => choose("occasion", v)}
+              onPick={(v) => (v === "andere" ? set("occasion", v) : choose("occasion", v))}
               cols={2}
             />
+            {a.occasion === "andere" && (
+              <input
+                className="fld"
+                style={{ marginTop: 12 }}
+                placeholder="Welcher Anlass? z. B. Schulabschluss, Einzug, Versöhnung …"
+                value={a.occasion_other}
+                onChange={(e) => set("occasion_other", e.target.value)}
+                autoFocus
+              />
+            )}
           </Step>
         )}
 
@@ -246,28 +292,61 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 5 — Story */}
+        {/* STEP 5 — Erinnerung (Pflicht) */}
         {step === 5 && (
-          <Step title={`Erzähl uns von ${a.recipient_name || "der Person"}`}>
+          <Step title={`Eure schönste Erinnerung mit ${who}?`}>
             <p className="sublabel">
-              Je persönlicher, desto schöner der Song. Gemeinsame Erinnerungen,
-              Eigenschaften, Insider, ein schöner Moment, Spitznamen …
+              Ein gemeinsamer Moment, der euch verbindet — je konkreter, desto
+              schöner wird der Song.
             </p>
             <textarea
               className="fld"
-              rows={6}
-              placeholder={`z. B. „${
-                a.recipient_name || "Mama"
-              } hat mich immer in den Arm genommen, wenn es mir schlecht ging. Sie liebt ihren Garten, lacht über ihre eigenen Witze und nennt mich Spatz …"`}
-              value={a.story}
-              onChange={(e) => set("story", e.target.value)}
+              rows={5}
+              placeholder={`z. B. „Als wir zusammen im Regen am Meer standen und einfach gelacht haben …"`}
+              value={a.story_memory}
+              onChange={(e) => set("story_memory", e.target.value)}
               autoFocus
             />
             <p className="muted" style={{ fontSize: 13, marginTop: 6 }}>
-              {a.story.trim().length < 15
-                ? "Bitte schreib ein paar Sätze (mind. 15 Zeichen)."
-                : `${a.story.trim().length} Zeichen — perfekt 💜`}
+              {a.story_memory.trim().length < 10
+                ? "Bitte schreib ein paar Worte (mind. 10 Zeichen)."
+                : `${a.story_memory.trim().length} Zeichen — wunderbar 💜`}
             </p>
+          </Step>
+        )}
+
+        {/* STEP 6 — Eigenschaften */}
+        {step === 6 && (
+          <Step title={`Was macht ${who} besonders?`}>
+            <p className="sublabel">
+              Eigenschaften, kleine Macken, was du an {who} liebst. (optional, aber
+              macht den Song persönlicher)
+            </p>
+            <textarea
+              className="fld"
+              rows={5}
+              placeholder={`z. B. „${who} ist die herzlichste Person, die ich kenne, lacht über ihre eigenen Witze und hat immer ein offenes Ohr …"`}
+              value={a.story_traits}
+              onChange={(e) => set("story_traits", e.target.value)}
+              autoFocus
+            />
+          </Step>
+        )}
+
+        {/* STEP 7 — Insider + Absender */}
+        {step === 7 && (
+          <Step title="Insider, Spitznamen, gemeinsame Dinge?">
+            <p className="sublabel">
+              Spitznamen, ein Insider-Witz, euer Lieblingsort oder -lied … (optional)
+            </p>
+            <textarea
+              className="fld"
+              rows={4}
+              placeholder={`z. B. „Ich nenne sie Spatz, wir lieben unseren Sonntags-Kaffee und sagen immer ‚alles wird gut'…"`}
+              value={a.story_inside}
+              onChange={(e) => set("story_inside", e.target.value)}
+              autoFocus
+            />
             <input
               className="fld"
               style={{ marginTop: 16 }}
@@ -278,8 +357,25 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 6 — Paket */}
-        {step === 6 && (
+        {/* STEP 8 — Botschaft */}
+        {step === 8 && (
+          <Step title={`Was soll der Song ${who} sagen?`}>
+            <p className="sublabel">
+              Die Kern-Botschaft — das, was im Refrain ankommen soll. (optional)
+            </p>
+            <textarea
+              className="fld"
+              rows={4}
+              placeholder={`z. B. „Danke, dass du immer für mich da bist — ich hab dich unendlich lieb."`}
+              value={a.story_message}
+              onChange={(e) => set("story_message", e.target.value)}
+              autoFocus
+            />
+          </Step>
+        )}
+
+        {/* STEP 9 — Paket */}
+        {step === 9 && (
           <Step title="Wähle dein Paket">
             <div style={{ display: "grid", gap: 14 }}>
               {(Object.keys(PACKAGES) as PackageId[]).map((id) => {
@@ -369,8 +465,8 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 7 — E-Mail + Checkout */}
-        {step === 7 && (
+        {/* STEP 10 — E-Mail + Checkout */}
+        {step === EMAIL_STEP && (
           <Step title="Wohin dürfen wir den Song schicken?">
             <p className="sublabel">
               Du bekommst die fertige MP3 in wenigen Minuten an diese Adresse.
@@ -422,7 +518,7 @@ export default function SongFunnel() {
               Zurück
             </button>
           )}
-          {step < 7 && (
+          {step < EMAIL_STEP && (
             <button
               className="btn btn-primary"
               style={{ marginLeft: "auto" }}
@@ -432,14 +528,16 @@ export default function SongFunnel() {
               Weiter
             </button>
           )}
-          {step === 7 && (
+          {step === EMAIL_STEP && (
             <button
               className="btn btn-primary"
               style={{ marginLeft: "auto" }}
               onClick={startCheckout}
               disabled={!canContinue() || loading}
             >
-              {loading ? "Einen Moment …" : `Jetzt für ${formatPrice(PACKAGES[pkg].priceCents)} bestellen`}
+              {loading
+                ? "Einen Moment …"
+                : `Jetzt für ${formatPrice(PACKAGES[pkg].priceCents)} bestellen`}
             </button>
           )}
         </div>

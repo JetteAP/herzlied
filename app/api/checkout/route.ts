@@ -38,13 +38,20 @@ export async function POST(req: NextRequest) {
       "relationship",
       "occasion",
       "genre",
-      "story",
+      "story_memory",
       "email",
     ];
     for (const k of required) {
       if (!answers[k] || !answers[k].trim()) {
         return NextResponse.json({ error: `Missing field: ${k}` }, { status: 400 });
       }
+    }
+    // Wenn "Andere"/"Jemand Besonderes" gewählt wurde, muss der Freitext da sein.
+    if (answers.occasion === "andere" && !answers.occasion_other?.trim()) {
+      return NextResponse.json({ error: "Missing field: occasion_other" }, { status: 400 });
+    }
+    if (answers.relationship === "sonstiges" && !answers.relationship_other?.trim()) {
+      return NextResponse.json({ error: "Missing field: relationship_other" }, { status: 400 });
     }
 
     // Stripe-Metadata: max 50 Keys, 500 Zeichen pro Wert.
@@ -54,13 +61,18 @@ export async function POST(req: NextRequest) {
       package: pkgId,
       recipient_name: answers.recipient_name.slice(0, 100),
       relationship: answers.relationship.slice(0, 60),
+      relationship_other: (answers.relationship_other ?? "").slice(0, 120),
       sender_name: (answers.sender_name ?? "").slice(0, 100),
       occasion: answers.occasion.slice(0, 60),
+      occasion_other: (answers.occasion_other ?? "").slice(0, 120),
       genre: answers.genre.slice(0, 60),
       mood: (answers.mood ?? "").slice(0, 60),
       voice: (answers.voice ?? "").slice(0, 40),
       language: (answers.language ?? "de").slice(0, 10),
-      story: answers.story.slice(0, 480),
+      story_memory: (answers.story_memory ?? "").slice(0, 480),
+      story_traits: (answers.story_traits ?? "").slice(0, 480),
+      story_inside: (answers.story_inside ?? "").slice(0, 480),
+      story_message: (answers.story_message ?? "").slice(0, 480),
       email: answers.email.slice(0, 200),
     };
 

@@ -4,13 +4,19 @@ import { BRAND } from "./brand";
 export type SongAnswers = {
   recipient_name: string; // Name des/der Beschenkten
   relationship: string; // Beziehung (id, siehe RELATIONSHIPS)
+  relationship_other: string; // Freitext, falls relationship === "sonstiges"
   sender_name: string; // Dein Name
   occasion: string; // Anlass (id, siehe OCCASIONS)
+  occasion_other: string; // Freitext, falls occasion === "andere"
   genre: string; // Musikstil (id, siehe GENRES)
   mood: string; // Stimmung (id, siehe MOODS)
   voice: string; // Stimme (id, siehe VOICES)
   language: string; // "de" | "en"
-  story: string; // Freitext — das Herzstück
+  // Das Herzstück — in vier gezielte Fragen aufgeteilt:
+  story_memory: string; // Schönste gemeinsame Erinnerung / besonderer Moment
+  story_traits: string; // Was die Person besonders macht
+  story_inside: string; // Insider, Spitznamen, gemeinsame Dinge
+  story_message: string; // Die Botschaft, die der Song vermitteln soll
   email: string;
   package?: PackageId;
 };
@@ -42,6 +48,7 @@ export const OCCASIONS: Record<string, string> = {
   weihnachten: "zu Weihnachten",
   valentinstag: "zum Valentinstag",
   einfach_so: "einfach so, aus Liebe",
+  andere: "zu einem besonderen Anlass",
 };
 
 type StyleInfo = { de: string; prompt: string };
@@ -111,9 +118,17 @@ export const LANGUAGES: Record<string, { de: string; en: string }> = {
 // ============ HELPERS ============
 
 function rel(a: SongAnswers): RelInfo {
+  // Eigener Freitext schlägt die feste Liste, wenn "Jemand Besonderes" gewählt wurde.
+  if (a.relationship === "sonstiges" && a.relationship_other?.trim()) {
+    const t = a.relationship_other.trim();
+    return { de: t, en: t };
+  }
   return RELATIONSHIPS[a.relationship] ?? RELATIONSHIPS.sonstiges;
 }
 function occ(a: SongAnswers): string {
+  if (a.occasion === "andere" && a.occasion_other?.trim()) {
+    return a.occasion_other.trim();
+  }
   return OCCASIONS[a.occasion] ?? OCCASIONS.einfach_so;
 }
 function genre(a: SongAnswers): StyleInfo {
@@ -127,6 +142,20 @@ function voice(a: SongAnswers): string {
 }
 function lang(a: SongAnswers): { de: string; en: string } {
   return LANGUAGES[a.language] ?? LANGUAGES.de;
+}
+
+/** Baut aus den vier Detail-Fragen einen strukturierten Material-Block. */
+function storyDetails(a: SongAnswers): string {
+  const parts: string[] = [];
+  if (a.story_memory?.trim())
+    parts.push(`- Shared memory / special moment: ${a.story_memory.trim()}`);
+  if (a.story_traits?.trim())
+    parts.push(`- What makes ${a.recipient_name} special (traits, quirks): ${a.story_traits.trim()}`);
+  if (a.story_inside?.trim())
+    parts.push(`- Inside references, nicknames, shared favourites: ${a.story_inside.trim()}`);
+  if (a.story_message?.trim())
+    parts.push(`- The core message the song should convey: ${a.story_message.trim()}`);
+  return parts.join("\n");
 }
 
 // ============ LYRICS BRIEF (für OpenAI) ============
@@ -160,12 +189,12 @@ export function buildLyricsBrief(a: SongAnswers): { system: string; user: string
     `Desired style/genre: ${genre(a).de}`,
     `Desired mood: ${mood(a).de}`,
     ``,
-    `The customer wrote this about ${a.recipient_name} — use these details concretely in the lyrics:`,
+    `The customer provided these concrete details about ${a.recipient_name} — weave them into the lyrics:`,
     `"""`,
-    a.story?.trim() || "(no extra details provided — write a warm, loving song based on the relationship and occasion)",
+    storyDetails(a) || "(no extra details provided — write a warm, loving song based on the relationship and occasion)",
     `"""`,
     ``,
-    `Remember: mention ${a.recipient_name} by name, make it specific, make it heartfelt.`,
+    `Remember: mention ${a.recipient_name} by name, make it specific, make it heartfelt. If a core message was given, let the chorus carry it.`,
   ].join("\n");
 
   return { system, user };
@@ -203,7 +232,7 @@ export function buildMusicPrompt(
   }
 
   // Fallback ohne vorab generierte Lyrics
-  const storyHint = (a.story || "").trim().replace(/\s+/g, " ").slice(0, 600);
+  const storyHint = storyDetails(a).replace(/\n/g, " ").replace(/\s+/g, " ").slice(0, 600);
   return [
     `${styleLine}${variantHint}`,
     `Write and perform a personalised gift song for ${a.recipient_name} (${rel(a).en}), ${occ(a)}.`,
