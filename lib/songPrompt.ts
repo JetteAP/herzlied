@@ -51,6 +51,20 @@ export const OCCASIONS: Record<string, string> = {
   andere: "zu einem besonderen Anlass",
 };
 
+// Englische Anlass-Beschreibungen — für die Song-Prompts (damit kein
+// deutscher Schnipsel die Songsprache verfälscht).
+const OCCASIONS_EN: Record<string, string> = {
+  geburtstag: "for a birthday",
+  muttertag: "for Mother's Day",
+  vatertag: "for Father's Day",
+  jahrestag: "for an anniversary",
+  hochzeit: "for a wedding",
+  weihnachten: "for Christmas",
+  valentinstag: "for Valentine's Day",
+  einfach_so: "just to say I love them",
+  andere: "for a special occasion",
+};
+
 type StyleInfo = { de: string; prompt: string };
 export const GENRES: Record<string, StyleInfo> = {
   pop_ballade: {
@@ -131,6 +145,12 @@ function occ(a: SongAnswers): string {
   }
   return OCCASIONS[a.occasion] ?? OCCASIONS.einfach_so;
 }
+function occEn(a: SongAnswers): string {
+  if (a.occasion === "andere" && a.occasion_other?.trim()) {
+    return `for this occasion: ${a.occasion_other.trim()}`;
+  }
+  return OCCASIONS_EN[a.occasion] ?? OCCASIONS_EN.einfach_so;
+}
 function genre(a: SongAnswers): StyleInfo {
   return GENRES[a.genre] ?? GENRES.pop_ballade;
 }
@@ -169,10 +189,11 @@ export function buildLyricsBrief(a: SongAnswers): { system: string; user: string
   const language = lang(a).en;
 
   const system = [
+    `CRITICAL LANGUAGE RULE: Write the ENTIRE song — every single line of lyrics — in ${language} ONLY. The customer's input details below may be written in another language (e.g. German), but you MUST translate the meaning and write the finished lyrics exclusively in ${language}. Do not mix languages. This rule overrides everything else.`,
     `You are a world-class professional songwriter who writes deeply personal gift songs.`,
     `You write singable, emotionally resonant lyrics that avoid clichés and never feel generic or cheesy.`,
     `You weave in the SPECIFIC concrete details the customer provides (real names, shared memories, inside references, personality traits) so the song could only ever be about this one person.`,
-    `Write the lyrics in ${language}.`,
+    `Again: the lyrics must be written in ${language}.`,
     `Structure the song with clearly labelled sections using square-bracket tags on their own lines, exactly like:`,
     `[Verse 1] ... [Chorus] ... [Verse 2] ... [Chorus] ... [Bridge] ... [Chorus]`,
     `Keep each line short enough to be sung comfortably. Total length should suit a song of roughly ${Math.round(
@@ -182,12 +203,12 @@ export function buildLyricsBrief(a: SongAnswers): { system: string; user: string
   ].join("\n");
 
   const user = [
-    `Write a personal gift song.`,
+    `Write a personal gift song. (Reminder: lyrics in ${language} only.)`,
     `From: ${a.sender_name || "someone who loves them"}`,
     `For: ${a.recipient_name} (${r.en})`,
-    `Occasion: ${occ(a).replace("zum ", "").replace("zur ", "").replace("zu ", "")}`,
-    `Desired style/genre: ${genre(a).de}`,
-    `Desired mood: ${mood(a).de}`,
+    `Occasion: ${occEn(a)}`,
+    `Desired style/genre: ${genre(a).prompt}`,
+    `Desired mood: ${mood(a).prompt}`,
     ``,
     `The customer provided these concrete details about ${a.recipient_name} — weave them into the lyrics:`,
     `"""`,
@@ -212,9 +233,10 @@ export function buildMusicPrompt(
   lyrics: string,
   variantIndex = 0
 ): string {
-  const styleLine = `${mood(a).prompt}. ${genre(a).prompt}. Sung by ${voice(
+  const langName = lang(a).en;
+  const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )} in ${lang(a).en}.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}.`;
 
   const variantHint =
     variantIndex === 0
@@ -224,8 +246,8 @@ export function buildMusicPrompt(
   if (lyrics && lyrics.trim()) {
     return [
       `${styleLine}${variantHint}`,
-      `A personalised gift song for ${a.recipient_name}, ${occ(a)}.`,
-      `Use these exact lyrics, respecting the [section] tags:`,
+      `A personalised gift song for ${a.recipient_name}, ${occEn(a)}.`,
+      `Use these exact lyrics, respecting the [section] tags (the lyrics are already in ${langName} — sing them exactly as written):`,
       ``,
       lyrics.trim(),
     ].join("\n");
@@ -235,7 +257,7 @@ export function buildMusicPrompt(
   const storyHint = storyDetails(a).replace(/\n/g, " ").replace(/\s+/g, " ").slice(0, 600);
   return [
     `${styleLine}${variantHint}`,
-    `Write and perform a personalised gift song for ${a.recipient_name} (${rel(a).en}), ${occ(a)}.`,
+    `Write and perform a personalised gift song (lyrics in ${langName} only) for ${a.recipient_name} (${rel(a).en}), ${occEn(a)}.`,
     `The lyrics should mention ${a.recipient_name} by name and reflect this: ${storyHint || "a warm, loving message"}.`,
   ].join("\n");
 }
