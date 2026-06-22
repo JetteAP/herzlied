@@ -24,11 +24,11 @@ export default function Home() {
           <a
             href="#funnel"
             className="btn btn-primary btn-glow"
-            style={{ fontSize: 17, padding: "18px 42px" }}
+            style={{ fontSize: 20, padding: "22px 56px", borderRadius: 16 }}
           >
             <svg
-              width="15"
-              height="15"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
