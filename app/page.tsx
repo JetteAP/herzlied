@@ -88,7 +88,7 @@ export default function Home() {
       <section id="funnel" className="container" style={{ padding: "32px 24px 64px", maxWidth: 660 }}>
         <p className="eyebrow" style={{ textAlign: "center" }}>In wenigen Minuten</p>
         <h2 style={{ fontSize: "clamp(28px, 4vw, 34px)", textAlign: "center", margin: "14px 0 30px" }}>
-          Erstelle deinen Song
+          Erstelle deinen Song!
         </h2>
         <SongFunnel />
       </section>
