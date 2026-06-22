@@ -99,8 +99,8 @@ const EMPTY: Answers = {
   email: "",
 };
 
-const TOTAL_STEPS = 11;
-const EMAIL_STEP = 10;
+const TOTAL_STEPS = 9;
+const EMAIL_STEP = 8;
 
 export default function SongFunnel() {
   const [step, setStep] = useState(0);
@@ -135,19 +135,17 @@ export default function SongFunnel() {
           (a.occasion !== "andere" || a.occasion_other.trim().length > 0)
         );
       case 2:
-        return a.genre.length > 0;
-      case 3:
-        return a.mood.length > 0;
-      case 4:
-        return a.voice.length > 0 && a.language.length > 0;
-      case 5:
         return a.story_memory.trim().length >= 10;
+      case 3:
+        return a.genre.length > 0;
+      case 4:
+        return a.mood.length > 0;
+      case 5:
+        return true; // zweite Textfrage ist optional
       case 6:
+        return a.voice.length > 0 && a.language.length > 0;
       case 7:
-      case 8:
-        return true;
-      case 9:
-        return true;
+        return true; // Paket immer gewählt
       case EMAIL_STEP:
         return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a.email.trim());
       default:
@@ -244,54 +242,8 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 2 — Genre */}
+        {/* STEP 2 — Textfrage 1: Erinnerung */}
         {step === 2 && (
-          <Step title="Welcher Musikstil?">
-            <ChoiceGrid
-              choices={GENRES}
-              value={a.genre}
-              onPick={(v) => choose("genre", v)}
-              cols={2}
-            />
-          </Step>
-        )}
-
-        {/* STEP 3 — Stimmung */}
-        {step === 3 && (
-          <Step title="Welche Stimmung soll der Song haben?">
-            <ChoiceGrid
-              choices={MOODS}
-              value={a.mood}
-              onPick={(v) => choose("mood", v)}
-              cols={2}
-            />
-          </Step>
-        )}
-
-        {/* STEP 4 — Stimme + Sprache */}
-        {step === 4 && (
-          <Step title="Stimme und Sprache">
-            <p className="sublabel">Gesangsstimme</p>
-            <ChoiceGrid
-              choices={VOICES}
-              value={a.voice}
-              onPick={(v) => set("voice", v)}
-              cols={3}
-            />
-            <p className="sublabel" style={{ marginTop: 24 }}>
-              Sprache des Songs
-            </p>
-            <ChoiceGrid
-              choices={LANGUAGES}
-              value={a.language}
-              onPick={(v) => set("language", v)}
-              cols={2}
-            />
-          </Step>
-        )}
-
-        {/* STEP 5 — Erinnerung (Pflicht) */}
-        {step === 5 && (
           <Step title={`Eure schönste Erinnerung mit ${who}`}>
             <p className="sublabel">
               Ein gemeinsamer Moment, der euch verbindet. Je konkreter, desto
@@ -313,36 +265,43 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 6 — Eigenschaften */}
-        {step === 6 && (
-          <Step title={`Was macht ${who} besonders?`}>
-            <p className="sublabel">
-              Eigenschaften, kleine Macken, was du an {who} liebst. Optional, aber
-              es macht den Song persönlicher.
-            </p>
-            <textarea
-              className="fld"
-              rows={5}
-              placeholder={`Etwa: ${who} ist die herzlichste Person, die ich kenne, lacht über die eigenen Witze und hat immer ein offenes Ohr.`}
-              value={a.story_traits}
-              onChange={(e) => set("story_traits", e.target.value)}
-              autoFocus
+        {/* STEP 3 — Genre */}
+        {step === 3 && (
+          <Step title="Welcher Musikstil?">
+            <ChoiceGrid
+              choices={GENRES}
+              value={a.genre}
+              onPick={(v) => choose("genre", v)}
+              cols={2}
             />
           </Step>
         )}
 
-        {/* STEP 7 — Insider + Absender */}
-        {step === 7 && (
-          <Step title="Insider, Spitznamen, gemeinsame Dinge">
+        {/* STEP 4 — Stimmung */}
+        {step === 4 && (
+          <Step title="Welche Stimmung soll der Song haben?">
+            <ChoiceGrid
+              choices={MOODS}
+              value={a.mood}
+              onPick={(v) => choose("mood", v)}
+              cols={2}
+            />
+          </Step>
+        )}
+
+        {/* STEP 5 — Textfrage 2: Eigenschaften + Absender */}
+        {step === 5 && (
+          <Step title={`Was macht ${who} besonders?`}>
             <p className="sublabel">
-              Spitznamen, ein Insider-Witz, euer Lieblingsort oder Lieblingslied. Optional.
+              Eigenschaften, kleine Macken, Spitznamen, was du an {who} liebst.
+              Optional, aber es macht den Song persönlicher.
             </p>
             <textarea
               className="fld"
-              rows={4}
-              placeholder="Etwa: Ich nenne sie Spatz, wir lieben unseren Sonntags-Kaffee und sagen immer, alles wird gut."
-              value={a.story_inside}
-              onChange={(e) => set("story_inside", e.target.value)}
+              rows={5}
+              placeholder={`Etwa: ${who} ist die herzlichste Person, die ich kenne, lacht über die eigenen Witze und nennt mich immer Spatz.`}
+              value={a.story_traits}
+              onChange={(e) => set("story_traits", e.target.value)}
               autoFocus
             />
             <input
@@ -355,25 +314,30 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 8 — Botschaft */}
-        {step === 8 && (
-          <Step title={`Was soll der Song ${who} sagen?`}>
-            <p className="sublabel">
-              Die Kern-Botschaft, das, was im Refrain ankommen soll. Optional.
+        {/* STEP 6 — Stimme + Sprache */}
+        {step === 6 && (
+          <Step title="Stimme und Sprache">
+            <p className="sublabel">Gesangsstimme</p>
+            <ChoiceGrid
+              choices={VOICES}
+              value={a.voice}
+              onPick={(v) => set("voice", v)}
+              cols={3}
+            />
+            <p className="sublabel" style={{ marginTop: 24 }}>
+              Sprache des Songs
             </p>
-            <textarea
-              className="fld"
-              rows={4}
-              placeholder="Etwa: Danke, dass du immer für mich da bist. Ich hab dich unendlich lieb."
-              value={a.story_message}
-              onChange={(e) => set("story_message", e.target.value)}
-              autoFocus
+            <ChoiceGrid
+              choices={LANGUAGES}
+              value={a.language}
+              onPick={(v) => set("language", v)}
+              cols={2}
             />
           </Step>
         )}
 
-        {/* STEP 9 — Paket */}
-        {step === 9 && (
+        {/* STEP 7 — Paket */}
+        {step === 7 && (
           <Step title="Wähle dein Paket">
             <div style={{ display: "grid", gap: 14 }}>
               {(Object.keys(PACKAGES) as PackageId[]).map((id) => {
@@ -463,7 +427,7 @@ export default function SongFunnel() {
           </Step>
         )}
 
-        {/* STEP 10 — E-Mail + Checkout */}
+        {/* STEP 8 — E-Mail + Checkout */}
         {step === EMAIL_STEP && (
           <Step title="Wohin dürfen wir den Song schicken?">
             <p className="sublabel">
