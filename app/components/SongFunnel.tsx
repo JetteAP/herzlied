@@ -444,21 +444,19 @@ export default function SongFunnel() {
             <div
               style={{
                 marginTop: 20,
-                padding: "18px 20px",
+                padding: "20px 22px",
                 borderRadius: 14,
-                background: "rgba(60,44,38,0.03)",
+                background: "var(--accent-soft)",
                 border: "1px solid var(--line)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                textAlign: "center",
               }}
             >
-              <span className="muted" style={{ fontSize: 15 }}>
-                {PACKAGES[pkg].name} · Song für {a.recipient_name || "…"}
-              </span>
-              <strong style={{ fontSize: 18, fontFamily: "var(--serif)", fontWeight: 500 }}>
-                {formatPrice(PACKAGES[pkg].priceCents)}
-              </strong>
+              <p style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--text)", margin: 0 }}>
+                Nur noch ein Schritt bis zu deinem Song
+              </p>
+              <p className="muted" style={{ fontSize: 13.5, marginTop: 6 }}>
+                Sichere Bezahlung · Lieferung in wenigen Minuten
+              </p>
             </div>
             {error && (
               <p style={{ color: "#b4524a", fontSize: 14, marginTop: 12 }}>{error}</p>
