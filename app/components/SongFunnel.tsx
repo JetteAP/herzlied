@@ -174,7 +174,7 @@ export default function SongFunnel() {
   return (
     <div className="card" style={{ padding: "0", overflow: "hidden" }}>
       {/* Progress */}
-      <div style={{ height: 3, background: "rgba(255,255,255,0.06)" }}>
+      <div style={{ height: 3, background: "rgba(60,44,38,0.06)" }}>
         <div
           style={{
             height: "100%",
@@ -446,7 +446,7 @@ export default function SongFunnel() {
                 marginTop: 20,
                 padding: "18px 20px",
                 borderRadius: 14,
-                background: "rgba(255,255,255,0.03)",
+                background: "rgba(60,44,38,0.03)",
                 border: "1px solid var(--line)",
                 display: "flex",
                 justifyContent: "space-between",
@@ -461,7 +461,7 @@ export default function SongFunnel() {
               </strong>
             </div>
             {error && (
-              <p style={{ color: "#e0a3a0", fontSize: 14, marginTop: 12 }}>{error}</p>
+              <p style={{ color: "#b4524a", fontSize: 14, marginTop: 12 }}>{error}</p>
             )}
           </Step>
         )}
@@ -511,7 +511,7 @@ export default function SongFunnel() {
           font-family: var(--sans);
           font-size: 16px;
           color: var(--text);
-          background: rgba(255,255,255,0.04);
+          background: rgba(60,44,38,0.04);
           border: 1px solid var(--line);
           border-radius: 12px;
           padding: 15px 17px;
@@ -520,9 +520,9 @@ export default function SongFunnel() {
         }
         .fld:focus {
           border-color: var(--accent);
-          background: rgba(255,255,255,0.06);
+          background: rgba(60,44,38,0.06);
         }
-        .fld::placeholder { color: #837868; }
+        .fld::placeholder { color: #a89a8d; }
         textarea.fld { resize: vertical; line-height: 1.6; }
         .sublabel {
           font-size: 14.5px;
@@ -577,7 +577,7 @@ function ChoiceGrid({
               border: active
                 ? "1px solid var(--accent)"
                 : "1px solid var(--line)",
-              background: active ? "var(--accent-soft)" : "rgba(255,255,255,0.02)",
+              background: active ? "var(--accent-soft)" : "rgba(60,44,38,0.02)",
               color: "var(--text)",
               transition: "all 0.13s ease",
               display: "flex",

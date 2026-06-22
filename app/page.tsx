@@ -9,7 +9,9 @@ export default function Home() {
       <section className="container" style={{ paddingTop: 84, paddingBottom: 24, textAlign: "center" }}>
         <p className="eyebrow">{BRAND.name}</p>
         <h1 style={{ fontSize: "clamp(34px, 5.2vw, 52px)", margin: "20px auto 0", maxWidth: 620 }}>
-          Ein Song, der <span className="gradient-text">von Herzen</span> kommt
+          Ein Song
+          <br />
+          der <span className="gradient-text">von Herzen</span> kommt
         </h1>
         <p
           className="muted"

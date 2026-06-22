@@ -1,17 +1,17 @@
 :root {
-  --bg: #141010;
-  --bg-soft: #1c1715;
-  --card: #201a17;
-  --line: rgba(234, 222, 208, 0.10);
-  --line-strong: rgba(234, 222, 208, 0.18);
-  --text: #f4ede2;
-  --muted: #a99d8f;
-  --accent: #e7c6a0;
-  --accent-2: #e3a9a0;
-  --rose: #e6a6a0;
-  --accent-soft: rgba(230, 166, 160, 0.13);
-  --gradient: linear-gradient(100deg, #f0d3b3 0%, #e8b0a6 58%, #df9d96 100%);
-  --shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  --bg: #f8f2ec;
+  --bg-soft: #fdfbf8;
+  --card: #ffffff;
+  --line: rgba(60, 44, 38, 0.10);
+  --line-strong: rgba(60, 44, 38, 0.18);
+  --text: #2c2420;
+  --muted: #8a7d72;
+  --accent: #c0786a;
+  --accent-2: #cd8a72;
+  --rose: #cf8a85;
+  --accent-soft: rgba(196, 120, 108, 0.12);
+  --gradient: linear-gradient(100deg, #d98f74 0%, #cd7b74 55%, #c46f78 100%);
+  --shadow: 0 24px 60px rgba(96, 64, 52, 0.10);
   --serif: "Fraunces", Georgia, serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -29,9 +29,9 @@ html {
 body {
   font-family: var(--sans);
   background:
-    radial-gradient(1100px 640px at 84% -8%, rgba(230, 166, 160, 0.14), transparent 60%),
-    radial-gradient(900px 600px at 6% 4%, rgba(231, 198, 160, 0.08), transparent 58%),
-    radial-gradient(700px 520px at 50% 108%, rgba(226, 150, 150, 0.07), transparent 60%),
+    radial-gradient(1100px 640px at 84% -8%, rgba(207, 138, 133, 0.16), transparent 60%),
+    radial-gradient(900px 600px at 6% 4%, rgba(224, 182, 150, 0.13), transparent 58%),
+    radial-gradient(700px 520px at 50% 110%, rgba(207, 138, 133, 0.10), transparent 60%),
     var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -82,15 +82,15 @@ a { color: inherit; }
 }
 .btn-primary {
   background: var(--gradient);
-  color: #2a1d12;
-  box-shadow: 0 14px 34px rgba(231, 198, 160, 0.20);
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(196, 111, 120, 0.28);
 }
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 20px 44px rgba(231, 198, 160, 0.28);
+  box-shadow: 0 20px 44px rgba(196, 111, 120, 0.36);
 }
 .btn-primary:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -98,16 +98,16 @@ a { color: inherit; }
 .btn-ghost {
   background: transparent;
   color: var(--muted);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
 }
 .btn-ghost:hover {
   color: var(--text);
-  border-color: var(--line-strong);
+  border-color: var(--accent);
 }
 
 /* ---------- Cards ---------- */
 .card {
-  background: linear-gradient(180deg, var(--card), var(--bg-soft));
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 20px;
   box-shadow: var(--shadow);
@@ -118,7 +118,7 @@ a { color: inherit; }
   letter-spacing: 0.38em;
   text-transform: uppercase;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .muted { color: var(--muted); }
