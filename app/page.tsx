@@ -102,7 +102,7 @@ export default function Home() {
           { q: "Wie lange dauert es?", a: "In der Regel nur wenige Minuten. Du erhältst den fertigen Song automatisch per E-Mail." },
           { q: "Ist das ein echter, gesungener Song?", a: "Ja. Mit echtem Gesang, Instrumenten und Refrain, geschrieben allein aus deiner Geschichte. Du bekommst eine Audiodatei zum Herunterladen." },
           { q: "Darf ich den Song verschenken und abspielen?", a: "Ja, der Song ist für deinen privaten Gebrauch und zum Verschenken bestimmt." },
-          { q: "Was, wenn mir der Song nicht gefällt?", a: `Schreib uns einfach an ${BRAND.supportEmail}, wir finden eine Lösung.` },
+          { q: "Was, wenn mir der Song nicht gefällt?", a: `Schreib uns einfach an ${BRAND.supportEmail}, wir finden eine Lösung!` },
         ].map((f, i) => (
           <details
             key={i}
