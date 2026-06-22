@@ -193,6 +193,7 @@ export function buildLyricsBrief(a: SongAnswers): { system: string; user: string
     `You are a world-class professional songwriter who writes deeply personal gift songs.`,
     `You write singable, emotionally resonant lyrics that avoid clichés and never feel generic or cheesy.`,
     `You weave in the SPECIFIC concrete details the customer provides (real names, shared memories, inside references, personality traits) so the song could only ever be about this one person.`,
+    `PERSPECTIVE: The song is sung by ${a.sender_name || "the gift-giver"} TO ${a.recipient_name}, who is the gift-giver's ${r.de}. Address ${a.recipient_name} directly and warmly (in second person). Only use terms of endearment that genuinely fit this relationship — for a parent or grandparent, NEVER use romantic pet names like "Schatz", "Liebling" or "Baby" to address them. If the customer mentions a nickname that the recipient uses for the gift-giver (e.g. "she calls me Schatz"), do NOT use it to address the recipient; you may mention it from the gift-giver's side ("you always called me ...") or simply leave it out. When in doubt, address the recipient by their name.`,
     `Again: the lyrics must be written in ${language}.`,
     `Structure the song with clearly labelled sections using square-bracket tags on their own lines, exactly like:`,
     `[Verse 1] ... [Chorus] ... [Verse 2] ... [Chorus] ... [Bridge] ... [Chorus]`,
