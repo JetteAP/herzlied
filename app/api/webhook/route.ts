@@ -159,7 +159,7 @@ async function processOrder(a: SongAnswers) {
     });
     fileLabels.push(
       songs.length > 1
-        ? `Dein Song für ${a.recipient_name} — Variante ${i + 1} (MP3)`
+        ? `Dein Song für ${a.recipient_name}, Variante ${i + 1} (MP3)`
         : `Dein Song für ${a.recipient_name} (MP3)`
     );
   });
@@ -185,7 +185,7 @@ async function sendOrderEmail(
   await transporter.sendMail({
     from: process.env.SMTP_FROM,
     to: a.email,
-    subject: `Dein Song für ${a.recipient_name} ist fertig 🎵`,
+    subject: `Dein Song für ${a.recipient_name} ist fertig`,
     html: buildEmailHtml(a, { lyrics, fileLabels }),
     attachments,
   });

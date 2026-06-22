@@ -5,7 +5,7 @@
 export const BRAND = {
   name: "Song Makery",
   // Erscheint im Browser-Tab und in E-Mails
-  tagline: "Ein persönlicher Song als Geschenk — für den Menschen, den du liebst.",
+  tagline: "Ein persönlicher Song als Geschenk für den Menschen, den du liebst.",
   domain: "songmakery.com",
   supportEmail: "hallo@songmakery.com",
   // Wird im Stripe-Webhook genutzt, um FREMDE Events (anderer Projekte am

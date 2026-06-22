@@ -3,33 +3,33 @@
 import { useState } from "react";
 import { PACKAGES, formatPrice, type PackageId } from "@/lib/packages";
 
-type Choice = { id: string; label: string; emoji?: string; hint?: string };
+type Choice = { id: string; label: string; hint?: string };
 
 const RELATIONSHIPS: Choice[] = [
-  { id: "mutter", label: "Meine Mutter", emoji: "💜" },
-  { id: "vater", label: "Mein Vater", emoji: "💙" },
-  { id: "partnerin", label: "Meine Partnerin", emoji: "❤️" },
-  { id: "partner", label: "Mein Partner", emoji: "❤️" },
-  { id: "freundin", label: "Beste Freundin", emoji: "🌸" },
-  { id: "freund", label: "Bester Freund", emoji: "🤝" },
-  { id: "oma", label: "Meine Oma", emoji: "🌷" },
-  { id: "opa", label: "Mein Opa", emoji: "🌟" },
-  { id: "kind", label: "Mein Kind", emoji: "🧸" },
-  { id: "schwester", label: "Meine Schwester", emoji: "💞" },
-  { id: "bruder", label: "Mein Bruder", emoji: "💪" },
-  { id: "sonstiges", label: "Andere…", emoji: "✨" },
+  { id: "mutter", label: "Meine Mutter" },
+  { id: "vater", label: "Mein Vater" },
+  { id: "partnerin", label: "Meine Partnerin" },
+  { id: "partner", label: "Mein Partner" },
+  { id: "freundin", label: "Beste Freundin" },
+  { id: "freund", label: "Bester Freund" },
+  { id: "oma", label: "Meine Oma" },
+  { id: "opa", label: "Mein Opa" },
+  { id: "kind", label: "Mein Kind" },
+  { id: "schwester", label: "Meine Schwester" },
+  { id: "bruder", label: "Mein Bruder" },
+  { id: "sonstiges", label: "Andere" },
 ];
 
 const OCCASIONS: Choice[] = [
-  { id: "geburtstag", label: "Geburtstag", emoji: "🎂" },
-  { id: "muttertag", label: "Muttertag", emoji: "💐" },
-  { id: "vatertag", label: "Vatertag", emoji: "🎩" },
-  { id: "jahrestag", label: "Jahrestag", emoji: "💞" },
-  { id: "hochzeit", label: "Hochzeit", emoji: "💍" },
-  { id: "weihnachten", label: "Weihnachten", emoji: "🎄" },
-  { id: "valentinstag", label: "Valentinstag", emoji: "❤️" },
-  { id: "einfach_so", label: "Einfach so", emoji: "✨" },
-  { id: "andere", label: "Anderer Anlass…", emoji: "📝" },
+  { id: "geburtstag", label: "Geburtstag" },
+  { id: "muttertag", label: "Muttertag" },
+  { id: "vatertag", label: "Vatertag" },
+  { id: "jahrestag", label: "Jahrestag" },
+  { id: "hochzeit", label: "Hochzeit" },
+  { id: "weihnachten", label: "Weihnachten" },
+  { id: "valentinstag", label: "Valentinstag" },
+  { id: "einfach_so", label: "Einfach so" },
+  { id: "andere", label: "Anderer Anlass" },
 ];
 
 const GENRES: Choice[] = [
@@ -39,28 +39,28 @@ const GENRES: Choice[] = [
   { id: "rock", label: "Pop-Rock", hint: "kraftvoll, mitreißend" },
   { id: "schlager", label: "Schlager", hint: "fröhlich, zum Mitsingen" },
   { id: "rnb_soul", label: "R&B / Soul", hint: "soulful, groovy" },
-  { id: "hiphop", label: "Hip-Hop", hint: "Beat + gesungener Hook" },
+  { id: "hiphop", label: "Hip-Hop", hint: "Beat und gesungener Hook" },
   { id: "epic", label: "Episch", hint: "cineastisch, Gänsehaut" },
 ];
 
 const MOODS: Choice[] = [
-  { id: "emotional", label: "Emotional & berührend", emoji: "🥹" },
-  { id: "froehlich", label: "Fröhlich & beschwingt", emoji: "😄" },
-  { id: "romantisch", label: "Romantisch", emoji: "💕" },
-  { id: "kraftvoll", label: "Kraftvoll & motivierend", emoji: "🔥" },
-  { id: "nostalgisch", label: "Nostalgisch", emoji: "🕰️" },
-  { id: "humorvoll", label: "Humorvoll & verspielt", emoji: "😉" },
+  { id: "emotional", label: "Emotional & berührend" },
+  { id: "froehlich", label: "Fröhlich & beschwingt" },
+  { id: "romantisch", label: "Romantisch" },
+  { id: "kraftvoll", label: "Kraftvoll & motivierend" },
+  { id: "nostalgisch", label: "Nostalgisch" },
+  { id: "humorvoll", label: "Humorvoll & verspielt" },
 ];
 
 const VOICES: Choice[] = [
-  { id: "weiblich", label: "Weibliche Stimme", emoji: "👩‍🎤" },
-  { id: "maennlich", label: "Männliche Stimme", emoji: "🎤" },
-  { id: "egal", label: "Egal / passend", emoji: "🎶" },
+  { id: "weiblich", label: "Weibliche Stimme" },
+  { id: "maennlich", label: "Männliche Stimme" },
+  { id: "egal", label: "Passend gewählt" },
 ];
 
 const LANGUAGES: Choice[] = [
-  { id: "de", label: "Deutsch", emoji: "🇩🇪" },
-  { id: "en", label: "Englisch", emoji: "🇬🇧" },
+  { id: "de", label: "Deutsch" },
+  { id: "en", label: "Englisch" },
 ];
 
 type Answers = {
@@ -114,10 +114,8 @@ export default function SongFunnel() {
   const next = () => setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
   const back = () => setStep((s) => Math.max(0, s - 1));
 
-  // Name (Platzhalter für die Story-Fragen)
   const who = a.recipient_name.trim() || "die Person";
 
-  // Auswahl-Schritte springen automatisch weiter
   const choose = (k: keyof Answers, v: string) => {
     set(k, v);
     setTimeout(next, 180);
@@ -143,13 +141,13 @@ export default function SongFunnel() {
       case 4:
         return a.voice.length > 0 && a.language.length > 0;
       case 5:
-        return a.story_memory.trim().length >= 10; // Herzstück: Pflicht
+        return a.story_memory.trim().length >= 10;
       case 6:
       case 7:
       case 8:
-        return true; // weitere Detail-Fragen: optional
+        return true;
       case 9:
-        return true; // Paket immer gewählt
+        return true;
       case EMAIL_STEP:
         return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a.email.trim());
       default:
@@ -178,19 +176,19 @@ export default function SongFunnel() {
   return (
     <div className="card" style={{ padding: "0", overflow: "hidden" }}>
       {/* Progress */}
-      <div style={{ height: 6, background: "rgba(255,255,255,0.06)" }}>
+      <div style={{ height: 3, background: "rgba(255,255,255,0.06)" }}>
         <div
           style={{
             height: "100%",
             width: `${((step + 1) / TOTAL_STEPS) * 100}%`,
             background: "var(--gradient)",
-            transition: "width 0.35s ease",
+            transition: "width 0.4s ease",
           }}
         />
       </div>
 
-      <div style={{ padding: "34px 30px 30px" }}>
-        <p className="eyebrow" style={{ marginBottom: 18 }}>
+      <div style={{ padding: "38px 34px 32px" }}>
+        <p className="eyebrow" style={{ marginBottom: 20 }}>
           Schritt {step + 1} von {TOTAL_STEPS}
         </p>
 
@@ -199,7 +197,7 @@ export default function SongFunnel() {
           <Step title="Für wen ist der Song?">
             <input
               className="fld"
-              placeholder="Name des/der Beschenkten, z. B. Mama oder Lena"
+              placeholder="Name des Beschenkten, etwa Mama oder Lena"
               value={a.recipient_name}
               onChange={(e) => set("recipient_name", e.target.value)}
               autoFocus
@@ -215,7 +213,7 @@ export default function SongFunnel() {
               <input
                 className="fld"
                 style={{ marginTop: 12 }}
-                placeholder="Wer ist diese Person? z. B. meine Patentante, mein Kollege …"
+                placeholder="Wer ist diese Person? Etwa meine Patentante, mein Kollege"
                 value={a.relationship_other}
                 onChange={(e) => set("relationship_other", e.target.value)}
                 autoFocus
@@ -237,7 +235,7 @@ export default function SongFunnel() {
               <input
                 className="fld"
                 style={{ marginTop: 12 }}
-                placeholder="Welcher Anlass? z. B. Schulabschluss, Einzug, Versöhnung …"
+                placeholder="Welcher Anlass? Etwa Schulabschluss, Einzug, Versöhnung"
                 value={a.occasion_other}
                 onChange={(e) => set("occasion_other", e.target.value)}
                 autoFocus
@@ -272,7 +270,7 @@ export default function SongFunnel() {
 
         {/* STEP 4 — Stimme + Sprache */}
         {step === 4 && (
-          <Step title="Stimme & Sprache">
+          <Step title="Stimme und Sprache">
             <p className="sublabel">Gesangsstimme</p>
             <ChoiceGrid
               choices={VOICES}
@@ -280,7 +278,7 @@ export default function SongFunnel() {
               onPick={(v) => set("voice", v)}
               cols={3}
             />
-            <p className="sublabel" style={{ marginTop: 22 }}>
+            <p className="sublabel" style={{ marginTop: 24 }}>
               Sprache des Songs
             </p>
             <ChoiceGrid
@@ -294,23 +292,23 @@ export default function SongFunnel() {
 
         {/* STEP 5 — Erinnerung (Pflicht) */}
         {step === 5 && (
-          <Step title={`Eure schönste Erinnerung mit ${who}?`}>
+          <Step title={`Eure schönste Erinnerung mit ${who}`}>
             <p className="sublabel">
-              Ein gemeinsamer Moment, der euch verbindet — je konkreter, desto
+              Ein gemeinsamer Moment, der euch verbindet. Je konkreter, desto
               schöner wird der Song.
             </p>
             <textarea
               className="fld"
               rows={5}
-              placeholder={`z. B. „Als wir zusammen im Regen am Meer standen und einfach gelacht haben …"`}
+              placeholder="Etwa: Als wir zusammen im Regen am Meer standen und einfach gelacht haben."
               value={a.story_memory}
               onChange={(e) => set("story_memory", e.target.value)}
               autoFocus
             />
-            <p className="muted" style={{ fontSize: 13, marginTop: 6 }}>
+            <p className="muted" style={{ fontSize: 13, marginTop: 8 }}>
               {a.story_memory.trim().length < 10
-                ? "Bitte schreib ein paar Worte (mind. 10 Zeichen)."
-                : `${a.story_memory.trim().length} Zeichen — wunderbar 💜`}
+                ? "Bitte schreib ein paar Worte (mindestens 10 Zeichen)."
+                : `${a.story_memory.trim().length} Zeichen, das genügt wunderbar.`}
             </p>
           </Step>
         )}
@@ -319,13 +317,13 @@ export default function SongFunnel() {
         {step === 6 && (
           <Step title={`Was macht ${who} besonders?`}>
             <p className="sublabel">
-              Eigenschaften, kleine Macken, was du an {who} liebst. (optional, aber
-              macht den Song persönlicher)
+              Eigenschaften, kleine Macken, was du an {who} liebst. Optional, aber
+              es macht den Song persönlicher.
             </p>
             <textarea
               className="fld"
               rows={5}
-              placeholder={`z. B. „${who} ist die herzlichste Person, die ich kenne, lacht über ihre eigenen Witze und hat immer ein offenes Ohr …"`}
+              placeholder={`Etwa: ${who} ist die herzlichste Person, die ich kenne, lacht über die eigenen Witze und hat immer ein offenes Ohr.`}
               value={a.story_traits}
               onChange={(e) => set("story_traits", e.target.value)}
               autoFocus
@@ -335,14 +333,14 @@ export default function SongFunnel() {
 
         {/* STEP 7 — Insider + Absender */}
         {step === 7 && (
-          <Step title="Insider, Spitznamen, gemeinsame Dinge?">
+          <Step title="Insider, Spitznamen, gemeinsame Dinge">
             <p className="sublabel">
-              Spitznamen, ein Insider-Witz, euer Lieblingsort oder -lied … (optional)
+              Spitznamen, ein Insider-Witz, euer Lieblingsort oder Lieblingslied. Optional.
             </p>
             <textarea
               className="fld"
               rows={4}
-              placeholder={`z. B. „Ich nenne sie Spatz, wir lieben unseren Sonntags-Kaffee und sagen immer ‚alles wird gut'…"`}
+              placeholder="Etwa: Ich nenne sie Spatz, wir lieben unseren Sonntags-Kaffee und sagen immer, alles wird gut."
               value={a.story_inside}
               onChange={(e) => set("story_inside", e.target.value)}
               autoFocus
@@ -350,7 +348,7 @@ export default function SongFunnel() {
             <input
               className="fld"
               style={{ marginTop: 16 }}
-              placeholder="Dein Name (optional — von wem ist der Song?)"
+              placeholder="Dein Name (optional, von wem ist der Song?)"
               value={a.sender_name}
               onChange={(e) => set("sender_name", e.target.value)}
             />
@@ -361,12 +359,12 @@ export default function SongFunnel() {
         {step === 8 && (
           <Step title={`Was soll der Song ${who} sagen?`}>
             <p className="sublabel">
-              Die Kern-Botschaft — das, was im Refrain ankommen soll. (optional)
+              Die Kern-Botschaft, das, was im Refrain ankommen soll. Optional.
             </p>
             <textarea
               className="fld"
               rows={4}
-              placeholder={`z. B. „Danke, dass du immer für mich da bist — ich hab dich unendlich lieb."`}
+              placeholder="Etwa: Danke, dass du immer für mich da bist. Ich hab dich unendlich lieb."
               value={a.story_message}
               onChange={(e) => set("story_message", e.target.value)}
               autoFocus
@@ -388,14 +386,12 @@ export default function SongFunnel() {
                     style={{
                       textAlign: "left",
                       cursor: "pointer",
-                      padding: "20px 22px",
+                      padding: "22px 24px",
                       borderRadius: 16,
                       border: active
-                        ? "2px solid var(--accent-2)"
+                        ? "1px solid var(--accent)"
                         : "1px solid var(--line)",
-                      background: active
-                        ? "rgba(200,155,240,0.10)"
-                        : "transparent",
+                      background: active ? "var(--accent-soft)" : "transparent",
                       transition: "all 0.15s ease",
                     }}
                   >
@@ -404,25 +400,26 @@ export default function SongFunnel() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "baseline",
-                        marginBottom: 6,
+                        marginBottom: 8,
                       }}
                     >
                       <span
-                        style={{ fontSize: 19, fontWeight: 600, fontFamily: "var(--serif)" }}
+                        style={{ fontSize: 20, fontWeight: 400, fontFamily: "var(--serif)" }}
                       >
                         {p.name}
                         {id === "premium" && (
                           <span
                             style={{
-                              fontSize: 11,
+                              fontSize: 10,
                               marginLeft: 10,
-                              padding: "3px 9px",
+                              padding: "3px 10px",
                               borderRadius: 999,
-                              background: "var(--gradient)",
-                              color: "#1a0f24",
+                              border: "1px solid var(--accent)",
+                              color: "var(--accent)",
                               fontFamily: "var(--sans)",
-                              fontWeight: 700,
-                              letterSpacing: "0.05em",
+                              fontWeight: 500,
+                              letterSpacing: "0.12em",
+                              verticalAlign: "middle",
                             }}
                           >
                             BELIEBT
@@ -442,19 +439,20 @@ export default function SongFunnel() {
                             {formatPrice(p.compareAtCents)}
                           </span>
                         )}
-                        <span style={{ fontSize: 22, fontWeight: 700 }}>
+                        <span style={{ fontSize: 22, fontWeight: 500, fontFamily: "var(--serif)" }}>
                           {formatPrice(p.priceCents)}
                         </span>
                       </span>
                     </div>
-                    <ul style={{ margin: "8px 0 0", padding: 0, listStyle: "none" }}>
+                    <ul style={{ margin: "10px 0 0", padding: 0, listStyle: "none" }}>
                       {p.features.map((f, i) => (
                         <li
                           key={i}
                           className="muted"
-                          style={{ fontSize: 14, padding: "2px 0" }}
+                          style={{ fontSize: 14.5, padding: "3px 0", paddingLeft: 18, position: "relative" }}
                         >
-                          ✓ {f}
+                          <span style={{ position: "absolute", left: 0, color: "var(--accent)" }}>·</span>
+                          {f}
                         </li>
                       ))}
                     </ul>
@@ -469,7 +467,7 @@ export default function SongFunnel() {
         {step === EMAIL_STEP && (
           <Step title="Wohin dürfen wir den Song schicken?">
             <p className="sublabel">
-              Du bekommst die fertige MP3 in wenigen Minuten an diese Adresse.
+              Du erhältst den fertigen Song in wenigen Minuten an diese Adresse.
             </p>
             <input
               className="fld"
@@ -481,10 +479,10 @@ export default function SongFunnel() {
             />
             <div
               style={{
-                marginTop: 18,
-                padding: "16px 18px",
+                marginTop: 20,
+                padding: "18px 20px",
                 borderRadius: 14,
-                background: "rgba(255,255,255,0.04)",
+                background: "rgba(255,255,255,0.03)",
                 border: "1px solid var(--line)",
                 display: "flex",
                 justifyContent: "space-between",
@@ -494,12 +492,12 @@ export default function SongFunnel() {
               <span className="muted" style={{ fontSize: 15 }}>
                 {PACKAGES[pkg].name} · Song für {a.recipient_name || "…"}
               </span>
-              <strong style={{ fontSize: 18 }}>
+              <strong style={{ fontSize: 18, fontFamily: "var(--serif)", fontWeight: 500 }}>
                 {formatPrice(PACKAGES[pkg].priceCents)}
               </strong>
             </div>
             {error && (
-              <p style={{ color: "#ff9aa8", fontSize: 14, marginTop: 12 }}>{error}</p>
+              <p style={{ color: "#e0a3a0", fontSize: 14, marginTop: 12 }}>{error}</p>
             )}
           </Step>
         )}
@@ -509,7 +507,7 @@ export default function SongFunnel() {
           style={{
             display: "flex",
             gap: 12,
-            marginTop: 28,
+            marginTop: 30,
             flexWrap: "wrap",
           }}
         >
@@ -536,7 +534,7 @@ export default function SongFunnel() {
               disabled={!canContinue() || loading}
             >
               {loading
-                ? "Einen Moment …"
+                ? "Einen Moment"
                 : `Jetzt für ${formatPrice(PACKAGES[pkg].priceCents)} bestellen`}
             </button>
           )}
@@ -549,23 +547,24 @@ export default function SongFunnel() {
           font-family: var(--sans);
           font-size: 16px;
           color: var(--text);
-          background: rgba(255,255,255,0.05);
+          background: rgba(255,255,255,0.04);
           border: 1px solid var(--line);
           border-radius: 12px;
-          padding: 14px 16px;
+          padding: 15px 17px;
           outline: none;
           transition: border-color 0.15s ease, background 0.15s ease;
         }
         .fld:focus {
-          border-color: var(--accent-2);
-          background: rgba(255,255,255,0.07);
+          border-color: var(--accent);
+          background: rgba(255,255,255,0.06);
         }
-        .fld::placeholder { color: #7a6e92; }
+        .fld::placeholder { color: #837868; }
         textarea.fld { resize: vertical; line-height: 1.6; }
         .sublabel {
-          font-size: 14px;
+          font-size: 14.5px;
           color: var(--muted);
-          margin: 14px 0 10px;
+          margin: 16px 0 12px;
+          line-height: 1.6;
         }
       `}</style>
     </div>
@@ -575,8 +574,8 @@ export default function SongFunnel() {
 function Step({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 style={{ fontSize: 26, marginBottom: 4 }}>{title}</h2>
-      <div style={{ marginTop: 16 }}>{children}</div>
+      <h2 style={{ fontSize: 27, marginBottom: 4, lineHeight: 1.2 }}>{title}</h2>
+      <div style={{ marginTop: 18 }}>{children}</div>
     </div>
   );
 }
@@ -609,23 +608,20 @@ function ChoiceGrid({
             style={{
               cursor: "pointer",
               textAlign: "left",
-              padding: "14px 14px",
+              padding: "15px 16px",
               borderRadius: 13,
               border: active
-                ? "2px solid var(--accent-2)"
+                ? "1px solid var(--accent)"
                 : "1px solid var(--line)",
-              background: active ? "rgba(200,155,240,0.12)" : "rgba(255,255,255,0.03)",
+              background: active ? "var(--accent-soft)" : "rgba(255,255,255,0.02)",
               color: "var(--text)",
               transition: "all 0.13s ease",
               display: "flex",
               flexDirection: "column",
-              gap: 2,
+              gap: 3,
             }}
           >
-            <span style={{ fontSize: 15, fontWeight: 600 }}>
-              {c.emoji ? c.emoji + " " : ""}
-              {c.label}
-            </span>
+            <span style={{ fontSize: 15, fontWeight: 500 }}>{c.label}</span>
             {c.hint && (
               <span style={{ fontSize: 12.5, color: "var(--muted)" }}>{c.hint}</span>
             )}

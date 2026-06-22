@@ -282,11 +282,11 @@ function lyricsToHtml(lyrics: string): string {
       if (!t) return `<div style="height:10px;"></div>`;
       const isTag = /^\[.+\]$/.test(t);
       if (isTag) {
-        return `<p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:#c89bf0; margin:18px 0 6px; font-weight:600;">${escapeHtml(
+        return `<p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.25em; text-transform:uppercase; color:#e7c6a0; margin:18px 0 6px; font-weight:600;">${escapeHtml(
           t.replace(/[\[\]]/g, "")
         )}</p>`;
       }
-      return `<p style="font-family:'Fraunces',Georgia,serif; font-size:17px; line-height:1.5; color:#f3ecff; margin:2px 0;">${escapeHtml(
+      return `<p style="font-family:'Fraunces',Georgia,serif; font-size:17px; line-height:1.5; color:#f4ede2; margin:2px 0;">${escapeHtml(
         t
       )}</p>`;
     })
@@ -302,60 +302,60 @@ export function buildEmailHtml(
   const filesList = opts.fileLabels
     .map(
       (f) =>
-        `<li style="margin-bottom:6px; font-family:'Inter',sans-serif; font-size:15px; color:#d8cce8;">${escapeHtml(
+        `<li style="margin-bottom:6px; font-family:'Inter',sans-serif; font-size:15px; color:#d8cfc2;">${escapeHtml(
           f
         )}</li>`
     )
     .join("");
 
   return `
-  <div style="background:#120d1a; padding:0; margin:0;">
-    <div style="max-width:600px; margin:0 auto; padding:46px 30px 40px; background:#120d1a;">
+  <div style="background:#141010; padding:0; margin:0;">
+    <div style="max-width:600px; margin:0 auto; padding:46px 30px 40px; background:#141010;">
       <div style="text-align:center; margin-bottom:30px;">
-        <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.4em; text-transform:uppercase; color:#e8b4c8; margin:0 0 14px; font-weight:600;">${escapeHtml(
+        <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.4em; text-transform:uppercase; color:#e7c6a0; margin:0 0 14px; font-weight:600;">${escapeHtml(
           BRAND.name
         )}</p>
-        <h1 style="margin:0; font-family:'Fraunces',Georgia,serif; font-size:30px; font-weight:500; color:#f3ecff; line-height:1.2;">Dein Song für ${escapeHtml(
+        <h1 style="margin:0; font-family:'Fraunces',Georgia,serif; font-size:30px; font-weight:500; color:#f4ede2; line-height:1.2;">Dein Song für ${escapeHtml(
           a.recipient_name
-        )} ist fertig &#10024;</h1>
+        )} ist fertig</h1>
       </div>
 
-      <p style="font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; color:#d8cce8;">Hallo${
+      <p style="font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; color:#d8cfc2;">Hallo${
         a.sender_name ? " " + escapeHtml(a.sender_name) : ""
       },</p>
-      <p style="font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; color:#d8cce8;">
+      <p style="font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; color:#d8cfc2;">
         dein ganz persönlicher Song für ${escapeHtml(r.de)} (${escapeHtml(
     a.recipient_name
-  )}) ${escapeHtml(occ(a))} ist fertig — geschrieben und komponiert allein aus deiner Geschichte.
+  )}) ${escapeHtml(occ(a))} ist fertig, geschrieben und komponiert allein aus deiner Geschichte.
         Du findest die Audiodatei${
           opts.fileLabels.length > 1 ? "en" : ""
         } im Anhang dieser E-Mail.
       </p>
 
-      <div style="margin:28px 0; padding:20px 24px; background:rgba(200,155,240,0.08); border:1px solid rgba(200,155,240,0.25); border-radius:14px;">
-        <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:#c89bf0; margin:0 0 12px; font-weight:600;">Im Anhang</p>
+      <div style="margin:28px 0; padding:20px 24px; background:rgba(231,198,160,0.08); border:1px solid rgba(231,198,160,0.25); border-radius:14px;">
+        <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:#e7c6a0; margin:0 0 12px; font-weight:600;">Im Anhang</p>
         <ul style="margin:0; padding-left:20px;">${filesList}</ul>
       </div>
 
       ${
         lyricsHtml
-          ? `<div style="margin:32px 0; padding:26px 26px; background:#1c1426; border:1px solid rgba(255,255,255,0.08); border-radius:16px;">
-              <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:#e8b4c8; margin:0 0 14px; font-weight:600;">Der Songtext</p>
+          ? `<div style="margin:32px 0; padding:26px 26px; background:#201a17; border:1px solid rgba(255,255,255,0.08); border-radius:16px;">
+              <p style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:#e7c6a0; margin:0 0 14px; font-weight:600;">Der Songtext</p>
               ${lyricsHtml}
             </div>`
           : ""
       }
 
-      <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.7; color:#b6a8cc; margin-top:30px;">
+      <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.7; color:#a99d8f; margin-top:30px;">
         Tipp: Lade die MP3 herunter und spiel sie ${escapeHtml(
           a.recipient_name
-        )} im richtigen Moment vor — oder verschick sie als kleine Überraschung. &#128156;
+        )} im richtigen Moment vor, oder verschick ihn als kleine Überraschung.
       </p>
 
       <div style="text-align:center; margin:40px 0 0;">
-        <div style="display:inline-block; width:40px; height:1px; background:rgba(232,180,200,0.5);"></div>
+        <div style="display:inline-block; width:40px; height:1px; background:rgba(231,198,160,0.5);"></div>
       </div>
-      <p style="font-family:'Inter',sans-serif; font-size:13px; color:#8a7da0; text-align:center; margin:20px 0 0;">${escapeHtml(
+      <p style="font-family:'Inter',sans-serif; font-size:13px; color:#a99d8f; text-align:center; margin:20px 0 0;">${escapeHtml(
         BRAND.name
       )} · ${escapeHtml(BRAND.supportEmail)}</p>
     </div>

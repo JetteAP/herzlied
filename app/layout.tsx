@@ -3,10 +3,10 @@ import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${BRAND.name} — Dein persönlicher Song als Geschenk`,
+  title: `${BRAND.name} · Dein persönlicher Song als Geschenk`,
   description: BRAND.tagline,
   openGraph: {
-    title: `${BRAND.name} — Dein persönlicher Song als Geschenk`,
+    title: `${BRAND.name} · Dein persönlicher Song als Geschenk`,
     description: BRAND.tagline,
     type: "website",
   },
