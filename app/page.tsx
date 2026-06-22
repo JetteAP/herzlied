@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SongFunnel from "./components/SongFunnel";
 import { BRAND } from "@/lib/brand";
+import { TESTIMONIALS } from "@/lib/testimonials";
 
 export default function Home() {
   return (
@@ -44,41 +45,36 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ---------------- SO ENTSTEHT DEIN SONG ---------------- */}
+      {/* ---------------- BEWERTUNGEN ---------------- */}
       <section className="container" style={{ padding: "56px 24px" }}>
+        <p className="eyebrow" style={{ textAlign: "center" }}>Das sagen unsere Kunden</p>
+        <h2 style={{ fontSize: "clamp(26px, 4vw, 32px)", textAlign: "center", margin: "14px 0 32px" }}>
+          Über 1.000 berührte Herzen
+        </h2>
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
             gap: 18,
           }}
         >
-          {[
-            { n: "I", t: "Erzähl deine Geschichte", d: "Wer wird beschenkt, zu welchem Anlass, in welchem Stil, und was diesen Menschen besonders macht." },
-            { n: "II", t: "Wir komponieren", d: "Aus deinen Worten entsteht ein individueller Text und eine echte, gesungene Aufnahme." },
-            { n: "III", t: "Fertig in Minuten", d: "Du erhältst den Song per E-Mail, zum Vorspielen, Verschenken und Behalten." },
-          ].map((s) => (
-            <div key={s.n} className="card" style={{ padding: "30px 28px" }}>
-              <div
+          {TESTIMONIALS.slice(0, 3).map((t, i) => (
+            <div key={i} className="card" style={{ padding: "28px 26px" }}>
+              <div style={{ color: "var(--accent)", letterSpacing: "0.14em", fontSize: 15, marginBottom: 14 }}>
+                ★★★★★
+              </div>
+              <p
                 style={{
-                  width: 42,
-                  height: 42,
-                  borderRadius: 999,
-                  border: "1px solid var(--line-strong)",
-                  color: "var(--accent)",
                   fontFamily: "var(--serif)",
-                  fontSize: 16,
-                  letterSpacing: "0.05em",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 18,
+                  fontSize: 17.5,
+                  fontStyle: "italic",
+                  lineHeight: 1.5,
+                  color: "var(--text)",
                 }}
               >
-                {s.n}
-              </div>
-              <h3 style={{ fontSize: 21, marginBottom: 10 }}>{s.t}</h3>
-              <p className="muted" style={{ fontSize: 15.5, lineHeight: 1.65 }}>{s.d}</p>
+                „{t.quote}"
+              </p>
+              <p className="muted" style={{ fontSize: 14, marginTop: 18 }}>{t.name}</p>
             </div>
           ))}
         </div>

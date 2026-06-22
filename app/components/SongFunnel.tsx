@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { PACKAGES, formatPrice, type PackageId } from "@/lib/packages";
+import { TESTIMONIALS } from "@/lib/testimonials";
+
+const FUNNEL_REVIEW_STEP = 4;
 
 type Choice = { id: string; label: string; hint?: string };
 
@@ -462,6 +465,38 @@ export default function SongFunnel() {
               <p style={{ color: "#b4524a", fontSize: 14, marginTop: 12 }}>{error}</p>
             )}
           </Step>
+        )}
+
+        {/* Bewertung mittig im Funnel */}
+        {step === FUNNEL_REVIEW_STEP && (
+          <div
+            style={{
+              marginTop: 26,
+              padding: "18px 20px",
+              borderRadius: 14,
+              background: "var(--accent-soft)",
+              border: "1px solid var(--line)",
+            }}
+          >
+            <div style={{ color: "var(--accent)", letterSpacing: "0.12em", fontSize: 13, marginBottom: 8 }}>
+              ★★★★★
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--serif)",
+                fontSize: 15.5,
+                fontStyle: "italic",
+                lineHeight: 1.5,
+                color: "var(--text)",
+                margin: 0,
+              }}
+            >
+              „{TESTIMONIALS[3].quote}"
+            </p>
+            <p className="muted" style={{ fontSize: 13, marginTop: 8 }}>
+              {TESTIMONIALS[3].name}
+            </p>
+          </div>
         )}
 
         {/* Navigation */}
