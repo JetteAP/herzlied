@@ -18,8 +18,8 @@ export const PACKAGES: Record<PackageId, Package> = {
   basis: {
     id: "basis",
     name: "Basis",
-    priceCents: 999,
-    compareAtCents: 1999,
+    priceCents: 1999,
+    compareAtCents: 2999,
     tagline: "Dein persönlicher Song (ca. 1,5 Min) als MP3",
     lengthMs: 90_000,
     variants: 1,
@@ -33,8 +33,8 @@ export const PACKAGES: Record<PackageId, Package> = {
   premium: {
     id: "premium",
     name: "Premium",
-    priceCents: 1999,
-    compareAtCents: 2999,
+    priceCents: 3499,
+    compareAtCents: 4999,
     tagline: "Längerer Song (ca. 2,5 Min) + 2 Varianten zur Auswahl",
     lengthMs: 150_000,
     variants: 2,
