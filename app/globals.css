@@ -7,9 +7,10 @@
   --text: #f4ede2;
   --muted: #a99d8f;
   --accent: #e7c6a0;
-  --accent-2: #d8a78f;
-  --accent-soft: rgba(231, 198, 160, 0.12);
-  --gradient: linear-gradient(100deg, #ecd2ad 0%, #e0b69b 100%);
+  --accent-2: #e3a9a0;
+  --rose: #e6a6a0;
+  --accent-soft: rgba(230, 166, 160, 0.13);
+  --gradient: linear-gradient(100deg, #f0d3b3 0%, #e8b0a6 58%, #df9d96 100%);
   --shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
   --serif: "Fraunces", Georgia, serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -28,8 +29,9 @@ html {
 body {
   font-family: var(--sans);
   background:
-    radial-gradient(1100px 640px at 82% -8%, rgba(231, 198, 160, 0.10), transparent 60%),
-    radial-gradient(840px 560px at 8% 6%, rgba(216, 167, 143, 0.07), transparent 58%),
+    radial-gradient(1100px 640px at 84% -8%, rgba(230, 166, 160, 0.14), transparent 60%),
+    radial-gradient(900px 600px at 6% 4%, rgba(231, 198, 160, 0.08), transparent 58%),
+    radial-gradient(700px 520px at 50% 108%, rgba(226, 150, 150, 0.07), transparent 60%),
     var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;

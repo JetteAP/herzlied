@@ -8,17 +8,15 @@ export default function Home() {
       {/* ---------------- HERO ---------------- */}
       <section className="container" style={{ paddingTop: 84, paddingBottom: 24, textAlign: "center" }}>
         <p className="eyebrow">{BRAND.name}</p>
-        <h1 style={{ fontSize: "clamp(36px, 6vw, 60px)", margin: "22px auto 0", maxWidth: 780 }}>
-          Ein <span className="gradient-text">persönlicher Song</span>, der
-          eure Geschichte erzählt
+        <h1 style={{ fontSize: "clamp(34px, 5.2vw, 52px)", margin: "20px auto 0", maxWidth: 620 }}>
+          Ein Song, der <span className="gradient-text">von Herzen</span> kommt
         </h1>
         <p
           className="muted"
-          style={{ fontSize: 19, maxWidth: 600, margin: "26px auto 0", lineHeight: 1.7 }}
+          style={{ fontSize: 18, maxWidth: 520, margin: "22px auto 0", lineHeight: 1.65 }}
         >
-          Beantworte ein paar Fragen über den Menschen, den du liebst. Aus deinen
-          Worten entsteht ein echter, gesungener Song. Fertig als Audiodatei in
-          wenigen Minuten in deinem Postfach.
+          Erzähl uns von einem Menschen, den du liebst. Wir verwandeln deine
+          Worte in einen echten, gesungenen Song.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 34, flexWrap: "wrap" }}>
           <a href="#funnel" className="btn btn-primary">
