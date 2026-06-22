@@ -65,6 +65,8 @@ a { color: inherit; }
 
 /* ---------- Buttons ---------- */
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -77,23 +79,62 @@ a { color: inherit; }
   border-radius: 14px;
   padding: 16px 32px;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.25s ease, opacity 0.2s ease, background 0.2s ease;
+  transition: transform 0.18s ease, box-shadow 0.25s ease, opacity 0.2s ease;
   text-decoration: none;
 }
 .btn-primary {
-  background: var(--gradient);
+  background: linear-gradient(135deg, #ea9d80 0%, #db7c77 48%, #c96a83 100%);
   color: #fff;
-  box-shadow: 0 14px 32px rgba(196, 111, 120, 0.28);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 16px 36px rgba(201, 106, 120, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.btn-primary:hover::before {
+  left: 135%;
 }
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 20px 44px rgba(196, 111, 120, 0.36);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 52px rgba(201, 106, 120, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .btn-primary:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+.btn-primary:disabled::before {
+  display: none;
+}
+
+@keyframes ctaPulse {
+  0%, 100% {
+    box-shadow: 0 16px 36px rgba(201, 106, 120, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+  50% {
+    box-shadow: 0 20px 48px rgba(201, 106, 120, 0.52),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+}
+.btn-glow {
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow { animation: none; }
 }
 .btn-ghost {
   background: transparent;

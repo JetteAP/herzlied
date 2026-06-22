@@ -21,7 +21,20 @@ export default function Home() {
           Worte in einen echten, gesungenen Song.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 34, flexWrap: "wrap" }}>
-          <a href="#funnel" className="btn btn-primary">
+          <a
+            href="#funnel"
+            className="btn btn-primary btn-glow"
+            style={{ fontSize: 17, padding: "18px 42px" }}
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
             Song erstellen
           </a>
         </div>
