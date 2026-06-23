@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       customer_email: answers.email,
-      locale: "auto",
+      locale: "de",
       ...({ adaptive_pricing: { enabled: false } } as any),
       line_items: [
         {
