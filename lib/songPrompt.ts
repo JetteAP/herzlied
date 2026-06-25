@@ -237,7 +237,7 @@ export function buildMusicPrompt(
   const langName = lang(a).en;
   const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )}. ${mood(a).prompt}. ${genre(a).prompt}. Polished, professional, emotionally engaging modern studio production with a clear, memorable melody and a strong chorus. Mature adult contemporary sound, never childish, never a nursery rhyme.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: full, rich, modern studio production with a strong, punchy beat, prominent drums and bass, and layered contemporary instrumentation. A clear, memorable melody and a powerful, anthemic chorus. VOCALS: the lead vocals must be strong, confident, present and emotive, well projected and sitting high and clear in the mix, doubled with subtle backing harmonies, never thin or shy. Radio-ready, professionally mixed and mastered, contemporary chart quality. Never thin, weak, quiet, muddy or demo-like; never childish or a nursery rhyme.`;
 
   const variantHint =
     variantIndex === 0
