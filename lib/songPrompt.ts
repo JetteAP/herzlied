@@ -70,42 +70,42 @@ export const GENRES: Record<string, StyleInfo> = {
   pop_ballade: {
     de: "Pop-Ballade",
     prompt:
-      "an emotional modern pop ballad with piano, warm strings, and a soaring chorus, radio-quality production",
+      "a heartfelt modern pop ballad, slow to mid tempo, with grand piano, warm strings and a soaring emotional chorus, glossy professional radio production, mature and tasteful, never cheesy or childish",
   },
   akustik: {
     de: "Akustik / Singer-Songwriter",
     prompt:
-      "an intimate acoustic singer-songwriter song with fingerpicked acoustic guitar, warm and organic, close personal vocals",
+      "an intimate acoustic singer-songwriter song, gentle mid tempo, fingerpicked acoustic guitar, warm organic and sincere, polished modern production, never childish",
   },
   folk_indie: {
     de: "Indie-Folk",
     prompt:
-      "a heartfelt indie-folk song with acoustic guitar, soft hand percussion, gentle harmonies",
+      "a warm modern indie-folk song, upbeat mid tempo, acoustic guitar, foot-stomping live drums and hand claps, heartfelt and uplifting, polished professional production, never childish",
   },
   rock: {
-    de: "Pop-Rock / Anthem",
+    de: "Pop / Mitreißend",
     prompt:
-      "an uplifting pop-rock anthem with electric guitars, driving drums, and a big emotional chorus",
+      "a modern uplifting feel-good pop song with a steady danceable beat, mid tempo around 110 BPM, warm guitars, real drums, bass and a big catchy chorus, romantic and celebratory, glossy professional radio production like a contemporary chart hit, absolutely NOT childish, NOT a nursery rhyme, NOT cheesy",
   },
   schlager: {
     de: "Schlager / Feel-Good",
     prompt:
-      "a modern German Schlager / feel-good pop song, catchy, warm, easy and singalong",
+      "a modern feel-good German pop schlager, upbeat and catchy with a danceable beat, warm and singalong, polished contemporary production, tasteful and never cheesy",
   },
   rnb_soul: {
     de: "R&B / Soul",
     prompt:
-      "a soulful R&B song with a smooth groove, lush chords, and emotive heartfelt vocals",
+      "a warm mid-tempo pop-soul groove with a relaxed danceable beat around 100 BPM, smooth chords, subtle live drums and emotive vocals, modern professional production, romantic and groovy but never sleepy or slow",
   },
   hiphop: {
     de: "Melodischer Hip-Hop",
     prompt:
-      "a melodic hip-hop song with a mellow beat, sung emotional hook and warm rap verses",
+      "a modern melodic pop-rap song with a clean danceable beat, a catchy sung emotional hook and warm verses, polished contemporary production",
   },
   epic: {
     de: "Cinematic / Episch",
     prompt:
-      "a cinematic, emotional song with orchestral build, big drums and a powerful climactic chorus",
+      "a cinematic emotional pop song building from soft to powerful, lush orchestral elements, big drums and a climactic chorus, modern film-score-meets-pop production, mature and grand",
   },
 };
 
@@ -237,7 +237,7 @@ export function buildMusicPrompt(
   const langName = lang(a).en;
   const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )}. ${mood(a).prompt}. ${genre(a).prompt}.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}. Polished, professional, emotionally engaging modern studio production with a clear, memorable melody and a strong chorus. Mature adult contemporary sound, never childish, never a nursery rhyme.`;
 
   const variantHint =
     variantIndex === 0

@@ -39,7 +39,7 @@ const GENRES: Choice[] = [
   { id: "pop_ballade", label: "Pop-Ballade", hint: "Klavier, Streicher, große Gefühle" },
   { id: "akustik", label: "Akustik", hint: "Gitarre, intim, ehrlich" },
   { id: "folk_indie", label: "Indie-Folk", hint: "warm, handgemacht" },
-  { id: "rock", label: "Pop-Rock", hint: "kraftvoll, mitreißend" },
+  { id: "rock", label: "Modern Pop", hint: "tanzbar, mitreißend, fröhlich" },
   { id: "schlager", label: "Schlager", hint: "fröhlich, zum Mitsingen" },
   { id: "rnb_soul", label: "R&B / Soul", hint: "soulful, groovy" },
   { id: "hiphop", label: "Hip-Hop", hint: "Beat und gesungener Hook" },
