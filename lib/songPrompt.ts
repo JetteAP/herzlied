@@ -112,7 +112,7 @@ export const GENRES: Record<string, StyleInfo> = {
 export const MOODS: Record<string, StyleInfo> = {
   emotional: { de: "Emotional & berührend", prompt: "deeply emotional, heartfelt, tender and moving" },
   froehlich: { de: "Fröhlich & beschwingt", prompt: "joyful, upbeat, celebratory and feel-good" },
-  romantisch: { de: "Romantisch", prompt: "romantic, warm, loving and intimate" },
+  romantisch: { de: "Romantisch", prompt: "romantic, dreamy and cinematic, sultry and a touch melancholic, lush warm reverb, slow-burning and intimate, with a timeless vintage-modern atmosphere" },
   kraftvoll: { de: "Kraftvoll & motivierend", prompt: "powerful, anthemic, uplifting and triumphant" },
   nostalgisch: { de: "Nostalgisch", prompt: "nostalgic, warm, reflective and bittersweet" },
   humorvoll: { de: "Humorvoll & verspielt", prompt: "playful, light-hearted, cheeky and fun" },
@@ -197,7 +197,7 @@ export function buildLyricsBrief(a: SongAnswers): { system: string; user: string
     `Again: the lyrics must be written in ${language}.`,
     `Structure the song with clearly labelled sections using square-bracket tags on their own lines, exactly like:`,
     `[Verse 1] ... [Chorus] ... [Verse 2] ... [Chorus] ... [Bridge] ... [Chorus]`,
-    `Keep each line short enough to be sung comfortably. Total length should suit a song of roughly ${Math.round(
+    `Keep the lyrics concise and unhurried: short lines with natural breathing room so the singer never has to rush or cram words. Fewer words sung clearly is far better than many words crammed in. Total length should suit a song of roughly ${Math.round(
       (a.package === "premium" ? 150 : 90)
     )} seconds.`,
     `Output ONLY the lyrics with the section tags. No title, no explanation, no commentary, no markdown.`,
@@ -237,7 +237,7 @@ export function buildMusicPrompt(
   const langName = lang(a).en;
   const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: full, rich, modern studio production with a strong, punchy beat, prominent drums and bass, and layered contemporary instrumentation. A clear, memorable melody and a powerful, anthemic chorus. VOCALS: the lead vocals must be strong, confident, present and emotive, well projected and sitting high and clear in the mix, doubled with subtle backing harmonies, never thin or shy. Radio-ready, professionally mixed and mastered, contemporary chart quality. Never thin, weak, quiet, muddy or demo-like; never childish or a nursery rhyme.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: a clean, cohesive, professional modern arrangement with a clear lead melody and a steady, well-defined groove. Smooth and well structured, never chaotic, glitchy, choppy or muddy. VOCALS: a SINGLE clear lead voice, warm and emotive, with every word clearly intelligible and well articulated, sitting front and centre in the mix. Do NOT layer, double or overlap the vocals, and never have two voices singing different words at the same time. Radio-ready and polished, contemporary quality; never thin, childish or demo-like.`;
 
   const variantHint =
     variantIndex === 0
