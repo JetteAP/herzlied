@@ -120,7 +120,7 @@ export const MOODS: Record<string, StyleInfo> = {
 
 export const VOICES: Record<string, string> = {
   weiblich: "a female lead vocalist",
-  maennlich: "a male lead vocalist",
+  maennlich: "a young male lead vocalist in his mid-twenties, warm, youthful and contemporary",
   egal: "a fitting lead vocalist",
 };
 
