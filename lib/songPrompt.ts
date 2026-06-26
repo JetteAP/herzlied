@@ -237,7 +237,7 @@ export function buildMusicPrompt(
   const langName = lang(a).en;
   const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: a clean, cohesive, professional modern arrangement with a catchy, familiar, instantly singable lead melody in the style of modern radio chart-pop, and a steady, well-defined groove. Smooth and well structured, never chaotic, glitchy, choppy or muddy. VOCALS: a SINGLE clear lead voice, warm and emotive, with every word clearly intelligible and well articulated, sitting front and centre in the mix. Do NOT layer, double or overlap the vocals, and never have two voices singing different words at the same time. Radio-ready and polished, contemporary quality; never thin, childish or demo-like.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: a clean, cohesive, professional modern arrangement with a catchy, familiar, instantly singable lead melody in the style of modern radio chart-pop, and a steady, well-defined groove. The vocal melody must flow smoothly and legato, with connected phrasing, sustained notes and room to breathe, at a relaxed unhurried pace. Smooth and well structured, never chaotic, glitchy, choppy, rushed or staccato. VOCALS: a SINGLE clear lead voice, warm and emotive, with every word clearly intelligible and well articulated, sitting front and centre in the mix. Do NOT layer, double or overlap the vocals, and never have two voices singing different words at the same time. Radio-ready and polished, contemporary quality; never thin, childish or demo-like.`;
 
   const variantHint =
     variantIndex === 0
