@@ -70,7 +70,7 @@ export const GENRES: Record<string, StyleInfo> = {
   pop_ballade: {
     de: "Pop-Ballade",
     prompt:
-      "a heartfelt modern pop ballad, mid-tempo with momentum, soft intimate verses on grand piano that clearly build into a big, soaring, powerful climactic chorus with drums, bass and warm strings, glossy professional radio production, mature and tasteful, never slow or sleepy, never cheesy or childish",
+      "a modern, tender pop ballad, mid-tempo and not slow, piano-led with a soft subtle modern beat and gentle atmospheric production, intimate verses that open up and lift emotionally in the chorus but stay tender and heartfelt, NO rock, no electric guitars, no heavy or driving drums, polished tasteful radio production, mature, never cheesy or childish",
   },
   akustik: {
     de: "Akustik / Singer-Songwriter",
@@ -120,7 +120,7 @@ export const MOODS: Record<string, StyleInfo> = {
 
 export const VOICES: Record<string, string> = {
   weiblich: "a female lead vocalist",
-  maennlich: "a young male lead vocalist in his mid-twenties with the warm, heartfelt, slightly raspy and emotive tone of a contemporary chart-pop singer-songwriter, youthful and modern",
+  maennlich: "a young male lead vocalist in his mid-twenties with real character and warmth, intimate and personal as if singing directly to one person, slightly raspy, sincere and emotive in the style of a contemporary pop singer-songwriter, youthful and modern",
   egal: "a fitting lead vocalist",
 };
 
