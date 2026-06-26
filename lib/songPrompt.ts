@@ -120,7 +120,7 @@ export const MOODS: Record<string, StyleInfo> = {
 
 export const VOICES: Record<string, string> = {
   weiblich: "a female lead vocalist",
-  maennlich: "a young male lead vocalist in his mid-twenties with real character and warmth, intimate and personal as if singing directly to one person, slightly raspy, sincere and emotive in the style of a contemporary pop singer-songwriter, youthful and modern",
+  maennlich: "a clearly masculine male lead vocalist, unmistakably a man's voice, young (mid-twenties) and modern, in a warm lower-mid chest register (NOT falsetto, not androgynous, not feminine), with real character, a little raspy, intimate and sincere, like a contemporary male pop singer-songwriter singing directly to one person",
   egal: "a fitting lead vocalist",
 };
 
