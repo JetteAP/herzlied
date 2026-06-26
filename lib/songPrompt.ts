@@ -120,7 +120,7 @@ export const MOODS: Record<string, StyleInfo> = {
 
 export const VOICES: Record<string, string> = {
   weiblich: "a female lead vocalist",
-  maennlich: "a young male lead vocalist in his mid-twenties, warm, youthful and contemporary",
+  maennlich: "a young male lead vocalist in his mid-twenties with the warm, heartfelt, slightly raspy and emotive tone of a contemporary chart-pop singer-songwriter, youthful and modern",
   egal: "a fitting lead vocalist",
 };
 
@@ -237,7 +237,7 @@ export function buildMusicPrompt(
   const langName = lang(a).en;
   const styleLine = `IMPORTANT: all vocals and lyrics must be in ${langName}. A ${langName}-language song with ${voice(
     a
-  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: a clean, cohesive, professional modern arrangement with a clear lead melody and a steady, well-defined groove. Smooth and well structured, never chaotic, glitchy, choppy or muddy. VOCALS: a SINGLE clear lead voice, warm and emotive, with every word clearly intelligible and well articulated, sitting front and centre in the mix. Do NOT layer, double or overlap the vocals, and never have two voices singing different words at the same time. Radio-ready and polished, contemporary quality; never thin, childish or demo-like.`;
+  )}. ${mood(a).prompt}. ${genre(a).prompt}. PRODUCTION: a clean, cohesive, professional modern arrangement with a catchy, familiar, instantly singable lead melody in the style of modern radio chart-pop, and a steady, well-defined groove. Smooth and well structured, never chaotic, glitchy, choppy or muddy. VOCALS: a SINGLE clear lead voice, warm and emotive, with every word clearly intelligible and well articulated, sitting front and centre in the mix. Do NOT layer, double or overlap the vocals, and never have two voices singing different words at the same time. Radio-ready and polished, contemporary quality; never thin, childish or demo-like.`;
 
   const variantHint =
     variantIndex === 0
